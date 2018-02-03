@@ -28,5 +28,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(Constants.INTENT_DESCRIPTION, mDescriptionText.text.toString())
             startActivity(intent)
         }
+
+        mNameTxt.clearFocus()
     }
 }
