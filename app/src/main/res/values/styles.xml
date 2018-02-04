@@ -9,7 +9,9 @@
     </style>
 
     <style name="LoginTheme" parent="AppTheme">
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <!--<item name="android:windowBackground">@color/colorPrimary</item>-->
+        <item name="android:windowBackground">@drawable/background_gradient</item>
+
     </style>
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">

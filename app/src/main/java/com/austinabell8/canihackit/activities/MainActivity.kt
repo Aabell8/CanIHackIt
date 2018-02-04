@@ -8,6 +8,8 @@ import android.widget.EditText
 import com.austinabell8.canihackit.R
 
 import com.austinabell8.canihackit.utils.Constants
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.yesButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,10 +25,20 @@ class MainActivity : AppCompatActivity() {
         mDescriptionText = findViewById(R.id.input_description)
         mSearchButton = findViewById(R.id.search_button)
         mSearchButton.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
-            intent.putExtra(Constants.INTENT_NAME, mNameTxt.text.toString())
-            intent.putExtra(Constants.INTENT_DESCRIPTION, mDescriptionText.text.toString())
-            startActivity(intent)
+            val name = mNameTxt.text.toString().trim()
+            val description = mDescriptionText.text.toString().trim()
+            if(name == "" && description == "") {
+                alert("A name of an app or description must be provided") {
+                    title = "Invalid Input"
+                    yesButton { }
+                }.show()
+            }
+            else{
+                val intent = Intent(this, SearchActivity::class.java)
+                intent.putExtra(Constants.INTENT_NAME, name)
+                intent.putExtra(Constants.INTENT_DESCRIPTION, description)
+                startActivity(intent)
+            }
         }
 
         mNameTxt.clearFocus()
