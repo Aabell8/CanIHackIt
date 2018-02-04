@@ -27,7 +27,9 @@ class MainActivity : AppCompatActivity() {
         mSearchButton = findViewById(R.id.search_button)
         mSearchButton.setOnClickListener {
             val name = mNameTxt.text.toString().trim()
+                    .replace("[^A-Za-z0-9 ]", "").toLowerCase()
             val description = mDescriptionText.text.toString().trim()
+                    .replace("[^A-Za-z0-9 ]", "").toLowerCase()
             if (name == "" && description == "") {
                 alert("A name of an app or description must be provided") {
                     title = "Invalid Input"
@@ -79,11 +81,7 @@ class MainActivity : AppCompatActivity() {
                 dialog.show()
 
             }
-
-
         }
-
-
         mNameTxt.clearFocus()
     }
 }

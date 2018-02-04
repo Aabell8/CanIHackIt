@@ -39,8 +39,10 @@ class SearchRecyclerAdapter(context: Context, results: List<ResultItem>,
         rHolder.tagsRecyclerView.layoutManager = layoutManager
         rHolder.tagsRecyclerView.isNestedScrollingEnabled = false
 
-        val mSearchAdapter = TagRecyclerAdapter(r.tags)
-        rHolder.tagsRecyclerView.adapter = mSearchAdapter
+        if(r.tags!=null){
+            val mSearchAdapter = TagRecyclerAdapter(r.tags)
+            rHolder.tagsRecyclerView.adapter = mSearchAdapter
+        }
     }
 
     override fun getItemCount(): Int {
