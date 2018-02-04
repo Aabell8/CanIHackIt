@@ -41,6 +41,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mSearchAdapter: SearchRecyclerAdapter
     private lateinit var mRecyclerViewListener: SearchListListener
+    private lateinit var mSearchOptions: BooleanArray
 
     private lateinit var mAsyncTask: RetrieveResultsAsync
 
@@ -59,6 +60,7 @@ class SearchActivity : AppCompatActivity() {
         if (bundle != null) {
             mName = bundle.getString(Constants.INTENT_NAME)
             mDescription = bundle.getString(Constants.INTENT_DESCRIPTION)
+            mSearchOptions = bundle.getBooleanArray(Constants.INTENT_SITES)
         }
 
         mRecyclerViewListener = object : SearchListListener {
@@ -82,8 +84,8 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        mAsyncTask = RetrieveResultsAsync()
-        mAsyncTask.execute()
+//        mAsyncTask = RetrieveResultsAsync()
+//        mAsyncTask.execute()
 
         //TODO: Get all results
 //        mResults.add(ResultItem("One App Idea", "Google Play Store", "test description",
@@ -121,7 +123,9 @@ class SearchActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         //Cancel background thread task when activity is destroyed
-        mAsyncTask.cancel(true)
+        if(::mAsyncTask.isInitialized){
+            mAsyncTask?.cancel(true)
+        }
     }
 
     /**
