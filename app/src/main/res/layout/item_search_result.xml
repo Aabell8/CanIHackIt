@@ -49,6 +49,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="19dp"
                 android:layout_toEndOf="@+id/imageCard"
+                android:layout_toStartOf="@+id/result_score"
                 android:orientation="vertical">
 
                 <TextView

@@ -28,8 +28,8 @@ class SearchRecyclerAdapter(context: Context, results: List<ResultItem>,
         if (value > 0.9) return "#990000"
         else if (value > 0.8) return "#CC6600"
         else if (value > 0.7) return "#C0C012"
-        else if (value > 0.6) return "3BCB9B"
-        else return "10BC2C"
+        else if (value > 0.6) return "#3BCB9B"
+        else return "#10BC2C"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
