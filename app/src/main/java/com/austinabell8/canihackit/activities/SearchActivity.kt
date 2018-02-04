@@ -29,6 +29,7 @@ import com.austinabell8.canihackit.utils.Constants
 import com.austinabell8.canihackit.utils.SearchListListener
 import com.github.kittinunf.fuel.*
 import com.github.kittinunf.result.getAs
+import com.github.kittinunf.result.success
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.json.JSONObject
@@ -168,6 +169,26 @@ class SearchActivity : AppCompatActivity() {
             mAsyncTask?.cancel(true)
         }
     }
+/**
+    private inner class CheckDomainAsync: AsyncTask<String, Void, String>() {
+        override fun doInBackground(vararg p0: String): String? {
+            val baseUrl = "https://domainr.p.mashape.com/v2/status?domain="
+            val domain = mName.replace(" ", "")
+            Fuel.get(baseUrl + domain).responseString { request, response, result ->
+                /*result.success { json ->
+                    Log.e("domain result: ", json.toString())
+                }*/
+                result.fold({
+                    Log.e("SUCCESS", result.getAs())
+                    return@responseString result.getAs()
+                }, {
+                    Log.e("FAILURE", result.toString())
+                    return@responseString null
+                })
+            }
+
+        }
+    }**/
 
     /**
      * This Async task calls the products API Call and retrieves necessary fields

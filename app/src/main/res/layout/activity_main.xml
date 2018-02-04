@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="46dp"
+        android:paddingTop="80dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/md_white_1000"
                 android:inputType="textEmailAddress"
-                android:hint="Application Name" />
+                android:hint="Application Name (optional)" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
