@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.austinabell8.canihackit.R
 import com.austinabell8.canihackit.model.ResultItem
 import com.austinabell8.canihackit.utils.SearchListListener
+import com.bumptech.glide.Glide
 
 class SearchRecyclerAdapter(context: Context, results: List<ResultItem>,
                             private val itemListener: SearchListListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -44,8 +45,11 @@ class SearchRecyclerAdapter(context: Context, results: List<ResultItem>,
 
         //Update data in SearchViewHolder
         rHolder.name.text = r.name
-        rHolder.score.text = round(r.ideascore * 100, 1).toString() + "%"
-        rHolder.score.setTextColor(Color.parseColor(getColor(r.ideascore)))
+        if (r.ideascore!=null){
+            val percent = round(r.ideascore.times(100), 1).toString()
+            rHolder.score.text = "$percent%"
+            rHolder.score.setTextColor(Color.parseColor(getColor(r.ideascore)))
+        }
         rHolder.location.text = r.location
         rHolder.description.text = r.description
         rHolder.regularLayout.setOnClickListener { v -> itemListener.recyclerViewListClicked(v, rHolder.layoutPosition) }
@@ -58,6 +62,11 @@ class SearchRecyclerAdapter(context: Context, results: List<ResultItem>,
         if(r.tags!=null){
             val mSearchAdapter = TagRecyclerAdapter(r.tags)
             rHolder.tagsRecyclerView.adapter = mSearchAdapter
+        }
+
+        if (r.imageUrl!=null){
+//            fun <T> RequestBuilder<T>.withPlaceholder() = apply(RequestOptions().placeholder(R.drawable.placeholder))
+            Glide.with(mContext).load(r.imageUrl).into(rHolder.profilePic)
         }
     }
 

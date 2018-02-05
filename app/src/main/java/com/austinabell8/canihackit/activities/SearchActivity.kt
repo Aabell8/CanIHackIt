@@ -7,6 +7,7 @@ import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import android.view.View
 import android.widget.ImageView
 import android.support.v4.util.Pair
 import android.util.Log
+import android.view.MenuItem
 import android.view.Window
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -29,7 +31,6 @@ import com.austinabell8.canihackit.utils.Constants
 import com.austinabell8.canihackit.utils.SearchListListener
 import com.github.kittinunf.fuel.*
 import com.github.kittinunf.result.getAs
-import com.github.kittinunf.result.success
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.json.JSONObject
@@ -155,7 +156,7 @@ class SearchActivity : AppCompatActivity() {
         mLayoutManager.orientation = LinearLayoutManager.VERTICAL
         mResultsRecyclerView.layoutManager = mLayoutManager
 
-        mSearchAdapter = SearchRecyclerAdapter(applicationContext, mResults, mRecyclerViewListener)
+        mSearchAdapter = SearchRecyclerAdapter(mResultsRecyclerView.context, mResults, mRecyclerViewListener)
         mResultsRecyclerView.adapter = mSearchAdapter
         if (mResults.size>0) {
             mSpinner.visibility = View.GONE
@@ -166,7 +167,7 @@ class SearchActivity : AppCompatActivity() {
         super.onDestroy()
         //Cancel background thread task when activity is destroyed
         if(::mAsyncTask.isInitialized){
-            mAsyncTask?.cancel(true)
+            mAsyncTask.cancel(true)
         }
     }
 /**
@@ -235,7 +236,7 @@ class SearchActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-            if(result!=null || result!=""){
+            if(result!=null && result!=""){
                 Log.e("POSTEXECUTE", result.toString())
                 val gson = Gson()
                 val ideas : IdeaJSON? = gson.fromJson(result, IdeaJSON::class.java)
@@ -246,6 +247,7 @@ class SearchActivity : AppCompatActivity() {
             }
             else {
                 Log.e("PostExecute", "Result was null")
+                Snackbar.make(mResultsRecyclerView, "Result: $result", Snackbar.LENGTH_LONG).show()
                 hideSpinner()
             }
         }
@@ -255,4 +257,13 @@ class SearchActivity : AppCompatActivity() {
         mSpinner.visibility = View.GONE
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return false
+    }
 }
