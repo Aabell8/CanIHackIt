@@ -137,8 +137,6 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun newIntent(context: Context, position: Int): Intent {
         val intent = Intent(context, ResultDetailsActivity::class.java)
         intent.putExtra(Constants.INTENT_RESULT, mResults[position])
@@ -216,7 +214,7 @@ class SearchActivity : AppCompatActivity() {
             json.put("sites", sites)
             if(mResults.size==0){
                 Log.e("json request:", json.toString())
-                val (ignoredRequest, ignoredResponse, result) = Fuel.post( "$url")
+                val (ignoredRequest, ignoredResponse, result) = Fuel.post(url)
                         .header("Content-Type" to "application/json")
                         .body(json.toString())
                         .responseString()
